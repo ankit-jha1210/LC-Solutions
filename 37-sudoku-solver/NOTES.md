@@ -1,2 +1,3 @@
 In this we are generally have to fill the board
-We iterate over each and every index wherever we find
+We iterate over each and every index wherever we find a emoty cell we check numbers from 1 to 9 whether or not we can put it or not if yes than change the value of that cell and call recursion further if we can place it there and if all the cells get filled than we return true and we immediately return from the initial recursive calling pos and don't backtrack cause we got out answer and if we didn't got true change the value to '.' for the next iteration. if we don't return true in any case than simply return false cause we did not got any valid number for that position
+At last we return true bcs all the cells are filled
