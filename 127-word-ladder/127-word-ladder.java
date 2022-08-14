@@ -4,23 +4,23 @@ class Solution {
         if (!wordList.contains(endWord)) return 0;
         HashMap<String, Boolean> map = new HashMap<>();
         for (String s : wordList) map.put(s, false);
-        Queue<String> pendingNodes = new LinkedList<>();
-        pendingNodes.add(beginWord);
-        int level = 1;
+        Queue<String> q = new LinkedList<>();
+        q.add(beginWord);
         map.put(beginWord, true);
-        while (!pendingNodes.isEmpty()) {
-            int size = pendingNodes.size();
+        int level = 1;
+        while (!q.isEmpty()) {
+            int size = q.size();
             for (int i = 0; i < size; i++) {
-                String s = pendingNodes.poll();
+                String s = q.poll();
                 if (s.equals(endWord)) return level;
-                wordMatch(s, map, pendingNodes);
+                wordMatch(s, map, q);
             }
             level++;
         }
         return 0;
     }
 
-    void wordMatch(String s, HashMap<String, Boolean> map, Queue<String> pendingNodes) {
+    void wordMatch(String s, HashMap<String, Boolean> map, Queue<String> q) {
         for (int i = 0; i < s.length(); i++) {
             char[] word = s.toCharArray();
             for (int j = 0; j < 26; j++) {
@@ -28,7 +28,7 @@ class Solution {
                 String newWord = String.valueOf(word);
                 if (map.containsKey(newWord) && !map.get(newWord)) {
                     map.put(newWord, true);
-                    pendingNodes.add(newWord);
+                    q.add(newWord);
                 }
             }
         }
