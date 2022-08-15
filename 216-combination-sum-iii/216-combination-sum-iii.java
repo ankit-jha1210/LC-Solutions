@@ -8,12 +8,11 @@ class Solution {
     }
 
     void helper(int k, int target, int start, List<Integer> temp) {
-        if (k < 0) return;
         if (k == 0) {
             if (target == 0) res.add(new ArrayList<>(temp));
             return;
         }
-        for (int i = start; i <= 9; i++) {
+        for (int i = start; i <= 9 && i <= target; i++) {
             temp.add(i);
             helper(k - 1, target - i, i + 1, temp);
             temp.remove(temp.size() - 1);
