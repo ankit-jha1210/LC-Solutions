@@ -8,11 +8,12 @@ class Solution {
     }
 
     void helper(int[] nums, int target, int ind, List<Integer> temp) {
-        if (target == 0) {
-            res.add(new ArrayList<>(temp));
+        if (ind == nums.length) {
+            if (target == 0) {
+                res.add(new ArrayList<>(temp));
+            }
             return;
         }
-        if (ind == nums.length) return;
         if (nums[ind] <= target) {
             temp.add(nums[ind]);
             helper(nums, target - nums[ind], ind, temp);
