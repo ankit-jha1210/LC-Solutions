@@ -1,6 +1,6 @@
 # LC-Solutions
 Collection of LeetCode questions to ace the coding interview!
-Author: [github.com/lzl124631x](https://github.com/J-Ankit2020)
+Author: [github.com/J-Ankit2020](https://github.com/J-Ankit2020)
 
 My Java Code for LeetCode OJ.
 
