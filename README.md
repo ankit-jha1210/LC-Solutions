@@ -11,7 +11,7 @@ Please give this repo a :star: if it inspires you. Thanks. :blush:
 
 \# | Title | Difficulty | Solution
 ---|---|---|---
-1 | Two Sum | Easy | [Solution](leetcode/1.%20Two%20Sum)
+1 | Two Sum | Easy | [Solution](LC-Solutions/126-word-ladder-ii/)
 2 | Add Two Numbers | Medium | [Solution](leetcode/2.%20Add%20Two%20Numbers)
 3 | Longest Substring Without Repeating Characters | Medium | [Solution](leetcode/3.%20Longest%20Substring%20Without%20Repeating%20Characters)
 4 | Median of Two Sorted Arrays | Hard | [Solution](leetcode/4.%20Median%20of%20Two%20Sorted%20Arrays)
