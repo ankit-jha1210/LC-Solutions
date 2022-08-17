@@ -31,4 +31,4 @@ Assume that the solution will contain the best time and space complexity
 
 # License
 
-All rights reserved by [github.com/lzl124631x](https://github.com/J-Ankit2020). Contact me if you want to redistribute the code. No commercial use.
+All rights reserved by [github.com/J-Ankit2020](https://github.com/J-Ankit2020). Contact me if you want to redistribute the code. No commercial use.
