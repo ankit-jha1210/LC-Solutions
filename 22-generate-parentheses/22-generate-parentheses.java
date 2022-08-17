@@ -3,27 +3,16 @@ class Solution {
 
     public List<String> generateParenthesis(int n) {
         lst = new ArrayList<>();
-        helper(n * 2, "");
+        helper("", n, n);
         return lst;
     }
 
-    public void helper(int size, String sb) {
-        if (sb.length() == size) {
-            if (isValid(sb)) lst.add(new String(sb));
+    public void helper(String str, int open, int close) {
+        if (open == 0 && close == 0) {
+            lst.add(str);
             return;
         }
-        if (sb.length() > size) return;
-        helper(size, sb + "(");
-        helper(size, sb + ")");
-    }
-
-    public boolean isValid(String s) {
-        Stack<Character> stk = new Stack<>();
-        for (char ch : s.toCharArray()) {
-            if (ch == '(') stk.push(ch); else if (ch == ')') {
-                if (!stk.isEmpty() && stk.peek() == '(') stk.pop(); else return false;
-            }
-        }
-        return stk.isEmpty();
+        if (open != 0) helper(str + "(", open - 1, close);
+        if (close > open) helper(str + ")", open, close - 1);
     }
 }
