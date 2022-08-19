@@ -3,17 +3,20 @@ class Solution {
     public int minSetSize(int[] arr) {
         HashMap<Integer, Integer> map = new HashMap<>();
         for (int num : arr) map.put(num, map.getOrDefault(num, 0) + 1);
-        int[] freq = new int[map.size()];
-        int i = 0;
-        for (Integer val : map.values()) freq[i++] = val;
-        Arrays.sort(freq);
-         i = freq.length - 1;
-        int removed = 0, half = arr.length / 2;
-        int ans = 0;
-        while (removed < half) {
-            ans++;
-            removed += freq[i--];
+        int n = arr.length;
+        int[] freq = new int[n + 1];
+        for (Integer val : map.values()) freq[val]++;
+        int removed = 0, res = 0, half = n / 2;
+        int i = n;
+        while (true) {
+            while (freq[i] != 0 && removed < half) {
+                removed += i;
+                freq[i]--;
+                res++;
+            }
+            i--;
+            if (removed >= half) break;
         }
-        return ans;
+        return res;
     }
 }
