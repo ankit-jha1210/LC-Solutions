@@ -21,7 +21,6 @@ class MinStack {
     }
 
     public void pop() {
-        if(stk.isEmpty()) return;
         Long val = stk.pop();
         if (val < min) {
             min = 2 * min - val;
@@ -29,11 +28,8 @@ class MinStack {
     }
 
     public int top() {
-        Long val = stk.peek();
-        if(val < min){
-            return min.intValue();
-        }
-        return val.intValue();
+        if(stk.peek() < min) return min.intValue();
+        else return stk.peek().intValue();
     }
 
     public int getMin() {
