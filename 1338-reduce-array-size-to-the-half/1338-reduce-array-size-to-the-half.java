@@ -7,14 +7,12 @@ class Solution {
         int[] freq = new int[n + 1];
         for (Integer val : map.values()) freq[val]++;
         int removed = 0, res = 0, half = n / 2;
-        int i = n;
-        while (true) {
+        for (int i = n; i >= 0; i--) {
             while (freq[i] != 0 && removed < half) {
                 removed += i;
                 freq[i]--;
                 res++;
             }
-            i--;
             if (removed >= half) break;
         }
         return res;
