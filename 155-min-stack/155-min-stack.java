@@ -28,8 +28,9 @@ class MinStack {
     }
 
     public int top() {
-        if(stk.peek() < min) return min.intValue();
-        else return stk.peek().intValue();
+        Long val = stk.peek();
+        if(val < min) return min.intValue();
+        else return val.intValue();
     }
 
     public int getMin() {
