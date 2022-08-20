@@ -1,7 +1,7 @@
 class Solution {
 
     public String shiftingLetters(String s, int[][] nums) {
-        StringBuilder sb = new StringBuilder(s);
+        char[] ch = s.toCharArray();
         int[] freq = new int[s.length() + 1];
         for (int i = 0; i < nums.length; i++) {
             int start = nums[i][0];
@@ -13,11 +13,10 @@ class Solution {
         int sum = 0;
         for (int i = 0; i < s.length(); i++) {
             sum += freq[i];
-            int newChar = (sb.charAt(i) - 'a' + sum) % 26;
+            int newChar = (ch[i] - 'a' + sum) % 26;
             if (newChar < 0) newChar += 26;
-            char ch = (char) ('a' + newChar);
-            sb.setCharAt(i, ch);
+            ch[i] = (char) ('a' + newChar);
         }
-        return sb.toString();
+        return String.valueOf(ch);
     }
 }
