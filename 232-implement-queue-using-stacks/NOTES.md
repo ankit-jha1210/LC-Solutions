@@ -10,7 +10,7 @@ Amortized method (Sometimes `O(n)`) but overall `O(1)`
 Take 2 stacks input and output
 in push operations simply push in input
 POp
-if(output is empty) pop all elements from s1 and push in s2
+if(output is empty) s1-> s2
 than pop from output
 else pop from output
 ​
