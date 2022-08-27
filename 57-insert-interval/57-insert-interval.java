@@ -1,30 +1,29 @@
 class Solution {
     public int[][] insert(int[][] intervals, int[] newInterval) {
-        ArrayList<int[]> ans = new ArrayList<>();
-        int idx = 0, n = intervals.length;
-        while(idx < n){
-            if(intervals[idx][0] < newInterval[0]){
-                ans.add(intervals[idx]);
-                idx++;
-            }
+        List<int[]> res = new ArrayList<>();
+        int i;
+        for(i = 0;i<intervals.length;i++){
+            if(newInterval[0] > intervals[i][0]) res.add(intervals[i]);
             else break;
         }
-        
-        if(ans.size() == 0 || newInterval[0] > ans.get(ans.size() - 1)[1]){
-            ans.add(newInterval);
+        if(res.size() == 0 || res.get(res.size()-1)[1] < newInterval[0]){
+            res.add(newInterval);
         }
-        else {
-           int[] lastInterval = ans.get(ans.size()-1);
+        else{
+            int[] lastInterval = res.get(res.size()-1);
             lastInterval[1] = Math.max(lastInterval[1], newInterval[1]);
         }
-        while(idx < n){
-            int[] lastInterval = ans.get(ans.size()-1);
-            if(lastInterval[1] >= intervals[idx][0]){
-                lastInterval[1] = Math.max(lastInterval[1], intervals[idx][1]);
+        while(i<intervals.length){
+            int[] lastInterval = res.get(res.size()-1);
+            if(lastInterval[1] < intervals[i][0]){
+                res.add(intervals[i]);
             }
-            else ans.add(intervals[idx]);
-            idx++;
+            else{
+                lastInterval[1] = Math.max(lastInterval[1], intervals[i][1]);
+            }
+            i++;
         }
-        return ans.toArray(new int[ans.size()][2]);
+        return res.toArray(new int[res.size()][2]);
+        
     }
 }
