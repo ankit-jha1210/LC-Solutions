@@ -4,23 +4,25 @@ class Solution {
         HashMap<Integer, Integer> map = new HashMap<>();
         for (int num : nums) map.put(num, map.getOrDefault(num, 0) + 1);
         List<Integer> buckets[] = new ArrayList[nums.length + 1];
-        //         creating buckets
-        for (int key : map.keySet()) {
-            int freq = map.get(key);
-            if (buckets[freq] == null) {
-                buckets[freq] = new ArrayList<>();
+        map.forEach(
+            (key, value) -> {
+                if (buckets[value] == null) {
+                    buckets[value] = new ArrayList<>();
+                }
+                buckets[value].add(key);
             }
-            buckets[freq].add(key);
-        }
+        );
         int[] res = new int[k];
-        int idx = 0;
-        for (int i = buckets.length - 1; i >= 0; i--) {
-            if (buckets[i] != null) {
-                for (int val : buckets[i]) {
-                    res[idx++] = val;
+        int freq = nums.length, idx = 0;
+        while (freq > 0) {
+            List<Integer> freqList = buckets[freq];
+            if (freqList != null) {
+                for (int num : freqList) {
+                    res[idx++] = num;
                     if (idx == k) return res;
                 }
             }
+            freq--;
         }
         return res;
     }
