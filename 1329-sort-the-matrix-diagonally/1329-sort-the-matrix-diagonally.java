@@ -6,7 +6,7 @@ class Solution {
         for (int i = 0; i < n; i++) {
             countSort(mat, 0, i);
         }
-        for (int i = 0; i < m; i++) {
+        for (int i = 1; i < m; i++) {
             countSort(mat, i, 0);
         }
         return mat;
