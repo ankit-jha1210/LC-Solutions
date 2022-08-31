@@ -1,13 +1,25 @@
 class Solution {
+    int[] dx = { 1, 0, -1, 0 };
+    int[] dy = { 0, 1, 0, -1 };
 
-    //      BruteForce
-    public List<List<Integer>> pacificAtlantic(int[][] heights) {
-        int m = heights.length;
-        int n = heights[0].length;
+    public List<List<Integer>> pacificAtlantic(int[][] mat) {
+        int m = mat.length;
+        int n = mat[0].length;
         List<List<Integer>> res = new ArrayList<>();
+        boolean[][] pacific = new boolean[m][n];
+        boolean[][] atlantic = new boolean[m][n];
+        for (int i = 0; i < m; i++) {
+            dfs(mat, pacific, i, 0, -1);
+            dfs(mat, atlantic, i, n - 1, -1);
+        }
+        for (int i = 0; i < n; i++) {
+            dfs(mat, atlantic, m - 1, i, -1);
+            dfs(mat, pacific, 0, i, -1);
+        }
+
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
-                if (canReachPacific(heights, i, j) && canReachAtlantic(heights, i, j)) {
+                if (pacific[i][j] && atlantic[i][j]) {
                     res.add(Arrays.asList(i, j));
                 }
             }
@@ -15,51 +27,13 @@ class Solution {
         return res;
     }
 
-    boolean canReachPacific(int[][] heights, int r, int c) {
-        int m = heights.length;
-        int n = heights[0].length;
-        if (r == 0 || c == 0) return true;
-        if (heights[r][c] == -1) return false;
-        boolean flag = false;
-        int val = heights[r][c];
-        heights[r][c] = -1;
-        if (heights[r - 1][c] <= val) {
-            flag = canReachPacific(heights, r - 1, c);
+    void dfs(int[][] mat, boolean[][] ocean, int r, int c, int prev) {
+        int m = mat.length;
+        int n = mat[0].length;
+        if (r < 0 || r == m || c < 0 || c == n || ocean[r][c] || mat[r][c] < prev) return;
+        ocean[r][c] = true;
+        for (int i = 0; i < 4; i++) {
+            dfs(mat, ocean, r + dx[i], c + dy[i], mat[r][c]);
         }
-        if (!flag && r + 1 < m && heights[r + 1][c] <= val) {
-            flag = canReachPacific(heights, r + 1, c);
-        }
-        if (!flag && heights[r][c - 1] <= val) {
-            flag = canReachPacific(heights, r, c - 1);
-        }
-        if (!flag && c + 1 < n && heights[r][c + 1] <= val) {
-            flag = canReachPacific(heights, r, c + 1);
-        }
-        heights[r][c] = val;
-        return flag;
-    }
-
-    boolean canReachAtlantic(int[][] heights, int r, int c) {
-        int m = heights.length;
-        int n = heights[0].length;
-        if (r == m - 1 || c == n - 1) return true;
-        if (heights[r][c] == -1) return false;
-        boolean flag = false;
-        int val = heights[r][c];
-        heights[r][c] = -1;
-        if (r - 1 >= 0 && heights[r - 1][c] <= val) {
-            flag = canReachAtlantic(heights, r - 1, c);
-        }
-        if (!flag && r + 1 < m && heights[r + 1][c] <= val) {
-            flag = canReachAtlantic(heights, r + 1, c);
-        }
-        if (c - 1 >= 0 && !flag && heights[r][c - 1] <= val) {
-            flag = canReachAtlantic(heights, r, c - 1);
-        }
-        if (!flag && heights[r][c + 1] <= val) {
-            flag = canReachAtlantic(heights, r, c + 1);
-        }
-        heights[r][c] = val;
-        return flag;
     }
 }
