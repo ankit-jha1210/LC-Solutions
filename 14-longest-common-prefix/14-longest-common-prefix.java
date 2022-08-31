@@ -1,20 +1,15 @@
 class Solution {
 
     public String longestCommonPrefix(String[] strs) {
-        HashMap<String, Integer> map = new HashMap<>();
-        for (String s : strs) {
-            for (int i = 0; i < s.length(); i++) {
-                String temp = s.substring(0, i + 1);
-                map.put(temp, map.getOrDefault(temp, 0) + 1);
+        String s = strs[0];
+        StringBuilder sb = new StringBuilder();
+        outer:for (int i = 0; i < s.length(); i++) {
+            for (int j = 1; j < strs.length; j++) {
+                if (strs[j].length() == i || s.charAt(i) != strs[j].charAt(i)) 
+                    break outer;
             }
+            sb.append(s.charAt(i));
         }
-        String res = "";
-        for(String s: map.keySet()) {
-            int freq = map.get(s);
-            if(freq == strs.length && s.length() > res.length()) {
-                res = s;
-            }
-        }
-        return res;
+        return sb.toString();
     }
 }
