@@ -4,7 +4,8 @@ class Solution {
         HashMap<Integer, HashSet<Integer>> map = new HashMap<>();
         for (int stone : stones) map.put(stone, new HashSet<>());
         map.get(0).add(1);
-        for (int stone : stones) {
+        for (int i = 0; i < stones.length; i++) {
+            int stone = stones[i];
             HashSet<Integer> jumps = map.get(stone);
             for (int jump : jumps) {
                 if (jump + stone == stones[stones.length - 1]) return true;
