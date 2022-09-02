@@ -1,27 +1,21 @@
 class Solution {
 
     public boolean canCross(int[] stones) {
-        Map<Integer, Integer> map = new HashMap<>();
-        for (int i = 0; i < stones.length; i++) map.put(stones[i], i);
-        Boolean[][] dp = new Boolean[stones.length][stones.length];
-        return solve(stones, 0, 1, map, dp);
-    }
-
-    boolean solve(int[] stones, int idx, int k, Map<Integer, Integer> map, Boolean[][] dp) {
-        if (idx == stones.length - 1) return true;
-        if (dp[idx][k] != null) return dp[idx][k];
-        if (stones[idx] + k - 1 > stones[idx]) {
-            if (map.containsKey(stones[idx] + k - 1) && solve(stones, map.get(stones[idx] + k - 1), k - 1, map, dp)) return dp[idx][k] = true;
+        HashMap<Integer, HashSet<Integer>> map = new HashMap<>();
+        for (int i = 0; i < stones.length; i++) map.put(stones[i], new HashSet<>());
+        map.get(0).add(1);
+        for (int i = 0; i < stones.length; i++) {
+            HashSet<Integer> options = map.get(stones[i]);
+            for (int num : options) {
+                int pos = stones[i] + num;
+                if (pos == stones[stones.length - 1]) return true;
+                if (map.containsKey(pos)) {
+                    if (num - 1 > 0) map.get(pos).add(num - 1);
+                    map.get(pos).add(num);
+                    map.get(pos).add(num + 1);
+                }
+            }
         }
-
-        if (map.containsKey(stones[idx] + k)) {
-            if (solve(stones, map.get(stones[idx] + k), k, map, dp)) return dp[idx][k] = true;
-        }
-        if (idx != 0 && map.containsKey(stones[idx] + k + 1)) {
-            if (solve(stones, map.get(stones[idx] + k + 1), k + 1, map, dp)) return dp[idx][k] = true;
-        }
-        return dp[idx][k] = false;
+        return false;
     }
 }
-// jump omly if that unit is present and map all the values
-// and take prev
