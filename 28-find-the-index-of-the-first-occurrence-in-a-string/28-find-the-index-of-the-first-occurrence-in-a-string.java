@@ -14,8 +14,9 @@ class Solution {
                     else break;
                 }
                 if (j == needle.length()) return i;
+                i++;
             }
-            i++;
+            else i++;
         }
         return -1;
     }
