@@ -1,6 +1,4 @@
 class Solution {
-    int[] dy = { -1, 1, 0, 0 };
-    int[] dx = { 0, 0, -1, 1 };
 
     public void solve(char[][] board) {
         int m = board.length, n = board[0].length;
@@ -14,18 +12,19 @@ class Solution {
         }
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
-                if (board[i][j] == '$') board[i][j] = 'O';
+                if (board[i][j] == '1') board[i][j] = 'O'; 
                 else if (board[i][j] == 'O') board[i][j] = 'X';
             }
         }
     }
 
-    void dfs(char[][] board, int r, int c) {
+    void dfs(char[][] board, int i, int j) {
         int m = board.length, n = board[0].length;
-        if (r < 0 || c < 0 || r == m || c == n || board[r][c] != 'O') return;
-        board[r][c] = '$';
-        for (int i = 0; i < 4; i++) {
-            dfs(board, r + dy[i], c + dx[i]);
-        }
+        if (i < 0 || j < 0 || i == m || j == n || board[i][j] != 'O') return;
+        board[i][j] = '1';
+        dfs(board, i + 1, j);
+        dfs(board, i - 1, j);
+        dfs(board, i, j + 1);
+        dfs(board, i, j - 1);
     }
 }
