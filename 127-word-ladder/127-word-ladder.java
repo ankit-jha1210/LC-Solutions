@@ -1,9 +1,9 @@
 class Solution {
 
     public int ladderLength(String beginWord, String endWord, List<String> wordList) {
-        if (!wordList.contains(endWord)) return 0;
+        if(!wordList.contains(endWord)) return 0; 
         HashMap<String, Boolean> map = new HashMap<>();
-        for (String s : wordList) map.put(s, false);
+        for(String str: wordList) map.put(str, false);
         Queue<String> q = new LinkedList<>();
         q.add(beginWord);
         map.put(beginWord, true);
@@ -11,24 +11,24 @@ class Solution {
         while (!q.isEmpty()) {
             int size = q.size();
             for (int i = 0; i < size; i++) {
-                String s = q.poll();
-                if (s.equals(endWord)) return level;
-                wordMatch(s, map, q);
+                String node = q.poll();
+                if (node.equals(endWord)) return level;
+                wordMatch(node, q, wordList, map);
             }
             level++;
         }
         return 0;
     }
 
-    void wordMatch(String s, HashMap<String, Boolean> map, Queue<String> q) {
-        for (int i = 0; i < s.length(); i++) {
-            char[] word = s.toCharArray();
+    void wordMatch(String node, Queue<String> q, List<String> wordList, HashMap<String, Boolean> map) {
+        for (int i = 0; i < node.length(); i++) {
+            char[] ch = node.toCharArray();
             for (int j = 0; j < 26; j++) {
-                word[i] = (char) ('a' + j);
-                String newWord = String.valueOf(word);
-                if (map.containsKey(newWord) && !map.get(newWord)) {
-                    map.put(newWord, true);
-                    q.add(newWord);
+                ch[i] = (char)('a' + j);
+                String str = String.valueOf(ch);
+                if (map.containsKey(str) && !map.get(str)) {
+                    map.put(str, true);
+                    q.add(str);
                 }
             }
         }
