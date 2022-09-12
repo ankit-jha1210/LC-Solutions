@@ -7,7 +7,7 @@ class Solution {
         int idx = 0;
         while (j < nums.length) {
             while (!dq.isEmpty() && nums[j] > dq.peekLast()) dq.pollLast();
-            dq.addLast(nums[j]);
+            dq.offer(nums[j]);
             if (j - i + 1 < k) j++; 
             else {
                 res[idx++] = dq.peek();
