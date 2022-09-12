@@ -6,12 +6,12 @@ class Solution {
         int maxLen = 0;
         while (j < nums.length) {
             if (nums[j] == 0) cnt++;
-            if (cnt <= k) {
-                maxLen = Math.max(maxLen, j - i + 1);
-            }
             while (cnt > k) {
                 if (nums[i] == 0) cnt--;
                 i++;
+            }
+            if (cnt <= k) {
+                maxLen = Math.max(maxLen, j - i + 1);
             }
             j++;
         }
