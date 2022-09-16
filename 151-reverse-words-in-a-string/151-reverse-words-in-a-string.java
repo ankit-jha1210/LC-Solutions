@@ -6,12 +6,12 @@ class Solution {
         while (i >= 0) {
             // removing trailing spaces
             while (i >= 0 && s.charAt(i) == ' ') i--;
-            if (i < 0) break;
+            if (i < 0) break; // in case of leading spaces
             int j = i;
             // finding starting of a word
             while (i >= 0 && s.charAt(i) != ' ') i--;
-            if (ans.length() == 0) ans = ans.concat(s.substring(i + 1, j + 1)); 
-            else ans = ans.concat(" " + s.substring(i + 1, j + 1));
+            if (ans.length() == 0) ans = ans + s.substring(i + 1, j + 1); 
+            else ans = ans + " " + s.substring(i + 1, j + 1);
         }
         return ans;
     }
