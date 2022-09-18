@@ -6,8 +6,7 @@ class Solution {
         int ans = 0;
         for (int val : map.values()) {
             if (val == 1) return -1;
-            if (val % 3 == 0) ans += val / 3; 
-            else ans += val / 3 + 1;
+            ans += Math.ceil((double) val / 3);
         }
         return ans;
     }
