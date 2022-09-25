@@ -3,7 +3,7 @@ class MyCircularQueue {
 
     public MyCircularQueue(int k) {
         arr = new int[k];
-        front = -1;
+        front = 0;
         rear = -1;
         size = 0;
     }
@@ -12,7 +12,6 @@ class MyCircularQueue {
         if (isFull()) return false;
         rear = (rear + 1) % arr.length;
         arr[rear] = value;
-        if(isEmpty()) front = 0;
         size++;
         return true;
     }
@@ -22,7 +21,7 @@ class MyCircularQueue {
         front = (front + 1) % arr.length;
         size--;
         if(size == 0) {
-            front = -1;
+            front = 0;
             rear = -1;
         }
         return true;
