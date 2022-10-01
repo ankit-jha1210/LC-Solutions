@@ -25,6 +25,8 @@ Please give this repo a :star: if it inspires you. Thanks. :blush:
 
 # FAQ
 
+Read Contributing.md before contributing
+
 ## Space Complexity
 
 Assume that the solution will contain the best time and space complexity
