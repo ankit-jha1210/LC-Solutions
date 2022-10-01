@@ -25,7 +25,7 @@ Please give this repo a :star: if it inspires you. Thanks. :blush:
 
 # FAQ
 
-Read Contributing.md before contributing
+### Read [`CONTRIBUTING.md`](https://github.com/J-Ankit2020/LC-Solutions/blob/main/CONTRIBUTING.md) to get started with contributing to this repository.
 
 ## Space Complexity
 
