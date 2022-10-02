@@ -4,9 +4,9 @@ class Solution {
         int n1 = nums1.length;
         int n2 = nums2.length;
         if (n1 % 2 == 0 && n2 % 2 == 0) return 0;
-        int xor1 = xor(nums1);
-        int xor2 = xor(nums2);
-        return (n1 % 2 == 1 && n2 % 2 == 1) ? xor1 ^ xor2 : (n1 % 2 == 1) ? xor2 : xor1;
+        else if(n1 % 2 == 1 && n2 % 2 == 1) return xor(nums1) ^ xor(nums2);
+        else if(n1 % 2 == 1) return xor(nums2);
+        else return xor(nums1);
     }
     int xor(int[] nums) {
         int x = 0;
