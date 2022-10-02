@@ -1,19 +1,19 @@
 class Solution {
-    final int mod = (int)Math.pow(10, 9) + 7;
-    public int numRollsToTarget(int n, int k, int target) {
-        Integer[][] dp = new Integer[n + 1][target + 1];
-        return solve(n, k, target, dp);
-    }
+    final int mod = (int) Math.pow(10, 9) + 7;
 
-    int solve(int n, int k, int target, Integer[][] dp) {
-        if (n == 0 && target == 0) return 1;
-        if (target == 0 || n == 0) return 0;
-        if (dp[n][target] != null) return dp[n][target];
-        int ans = 0;
-        for (int i = 1; i <= k; i++) {
-            if (i > target) break;
-            ans = (ans + solve(n - 1, k, target - i, dp)) % mod;
+    public int numRollsToTarget(int n, int k, int target) {
+        int[][] dp = new int[n + 1][target + 1];
+        dp[0][0] = 1;
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j <= target; j++) {
+                int ans = 0;
+                for (int idx = 1; idx <= k; idx++) {
+                    if (idx > j) break;
+                    ans = (ans + dp[i - 1][j - idx]) % mod;
+                }
+                dp[i][j] = ans;
+            }
         }
-        return dp[n][target] = ans;
+        return dp[n][target];
     }
 }
