@@ -18,10 +18,9 @@ class Solution {
         if (i == board.length || j == board[0].length || i < 0 || j < 0 || board[i][j] == '@') return false;
         char ch = board[i][j];
         board[i][j] = '@';
-        if(ch == word.charAt(ind)) {
+        if (ch == word.charAt(ind)) {
             for (int idx = 0; idx < 4; idx++) {
-               boolean take = search(board, word, ind + 1, i + dx[idx], j + dy[idx]);
-                if(take) {
+                if (search(board, word, ind + 1, i + dx[idx], j + dy[idx])) {
                     board[i][j] = ch;
                     return true;
                 }
