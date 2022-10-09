@@ -14,6 +14,7 @@ class Solution {
     boolean find(TreeNode root, TreeNode curr, int k) {
         if (root == null) return false;
         if (root.val == k && root != curr) return true;
-        return find(root.left, curr, k) || find(root.right, curr, k);
+        if(root.val > k) return find(root.left, curr, k);
+        else return find(root.right, curr, k);
     }
 }
