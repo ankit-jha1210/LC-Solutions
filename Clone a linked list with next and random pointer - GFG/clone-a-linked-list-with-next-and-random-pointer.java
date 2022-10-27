@@ -151,22 +151,31 @@ class Cloning {
 // } Driver Code Ends
 
 class Clone {
-    //Function to clone a linked list with next and random pointer.
+    
     Node copyList(Node head) {
-        HashMap<Node, Node> map = new HashMap<>();
         Node temp = head;
         while(temp != null) {
-            map.put(temp, new Node(temp.data));
-            temp = temp.next;
+            Node clone = new Node(temp.data);
+            clone.next = temp.next;
+            temp.next = clone;
+            temp = temp.next.next;
         }
         temp = head;
+        
         while(temp != null) {
-            Node cloneTemp = map.get(temp);
-            cloneTemp.next = map.get(temp.next);
-            if(temp.arb != null) cloneTemp.arb = map.get(temp.arb);
+            Node clone = temp.next;
+            if(temp.arb != null) clone.arb = temp.arb.next;
+            temp = temp.next.next;
+        }
+        temp = head;
+        Node cloneHead = new Node(0), tail = cloneHead;
+        while(temp != null) {
+            tail.next = temp.next;
+            temp.next = temp.next.next;
+            tail = tail.next;
             temp = temp.next;
         }
-        return map.get(head);
+        return cloneHead.next;
     }
 }
 
