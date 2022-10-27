@@ -50,14 +50,19 @@ class Main {
 class Solution{
     //Function to rotate a linked list.
     public Node rotate(Node head, int k) {
-        for(int i = 0; i < k; i++) {
-            Node temp = head;
-            while(temp.next != null) temp = temp.next;
-            Node newHead = head.next;
-            temp.next = head;
-            head.next = null;
-            head = newHead;
+        Node temp = head;
+        int size = 1;
+        while(temp.next != null) {
+            temp = temp.next;
+            size++;
         }
+        if(k == size) return head;
+        temp.next = head;
+        temp = head;
+        k %= size;
+        for(int i = 1; i < k; i++) temp = temp.next;
+        head = temp.next;
+        temp.next = null;
         return head;
     }
 }
