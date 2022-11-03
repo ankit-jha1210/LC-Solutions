@@ -1,37 +1,30 @@
 class Solution {
-    int[] dy = { 1, -1, 0, 0 };
-    int[] dx = { 0, 0, 1, -1 };
 
     public int numEnclaves(int[][] grid) {
-        int m = grid.length;
-        int n = grid[0].length;
-        int cnt = 0;
-        Queue<int[]> q = new LinkedList<>();
-        for (int i = 0; i < m; i++) {
-            for (int j = 0; j < n; j++) {
-                if ((i == 0 || i == m - 1 || j == 0 || j == n - 1) && grid[i][j] == 1) {
-                    q.add(new int[] { i, j });
-                    grid[i][j] = 2;
-                }
-            }
+        for (int i = 0; i < grid.length; i++) {
+            dfs(grid, i, 0);
+            dfs(grid, i, grid[0].length - 1);
         }
-        while (!q.isEmpty()) {
-            int[] node = q.poll();
-            int x = node[0], y = node[1];
-            for (int i = 0; i < 4; i++) {
-                int r = x + dy[i];
-                int c = y + dx[i];
-                if (r < 0 || c < 0 || r == m || c == n || grid[r][c] != 1) continue;
-                grid[r][c] = 2;
-                q.add(new int[]{r, c});
-            }
+        for (int i = 0; i < grid[0].length; i++) {
+            dfs(grid, 0, i);
+            dfs(grid, grid.length - 1, i);
         }
-        for (int i = 0; i < m; i++) {
-            for (int j = 0; j < n; j++) {
-                if (grid[i][j] == 1) cnt++; 
+        int ans = 0;
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[0].length; j++) {
+                if (grid[i][j] == 1) ans++; 
                 else if (grid[i][j] == 2) grid[i][j] = 1;
             }
         }
-        return cnt;
+        return ans;
+    }
+
+    void dfs(int[][] grid, int x, int y) {
+        if (x < 0 || y < 0 || x == grid.length || y == grid[0].length || grid[x][y] != 1) return;
+        grid[x][y] = 2;
+        dfs(grid, x + 1, y);
+        dfs(grid, x, y + 1);
+        dfs(grid, x, y - 1);
+        dfs(grid, x - 1, y);
     }
 }
