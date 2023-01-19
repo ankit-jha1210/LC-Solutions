@@ -33,21 +33,18 @@ class GFG{
 //User function Template for Java
 
 class Solution{
-    static int knapSack(int N, int W, int val[], int wt[])
+    static int knapSack(int N, int w, int val[], int wt[])
     {
-        Integer[][] dp = new Integer[N][W + 1];
-        return solve(N - 1, W, val, wt, dp);
-    }
-    static int solve(int ind, int W, int[] val, int[] wt, Integer[][] dp) {
-        if(ind == 0) {
-            if(W >= wt[ind]) return val[0] * (W/wt[0]);
-            return 0;
+        int[][] dp = new int[N][w + 1];
+        for(int j = wt[0]; j <= w; j++) dp[0][j] = val[0] * (j / wt[0]);
+        for(int ind = 1; ind < N; ind++){
+            for(int W = 1; W <= w; W++) {
+                int not = dp[ind - 1][W];
+                int take = 0;
+                if(wt[ind] <= W) take = dp[ind][W - wt[ind]] + val[ind];
+                dp[ind][W] = Math.max(take, not);
+            }
         }
-        if(dp[ind][W] != null) return dp[ind][W];
-        int not = solve(ind - 1, W, val, wt, dp);
-        int take = 0;
-        if(wt[ind] <= W) take = solve(ind, W - wt[ind], val, wt, dp) + val[ind];
-        return dp[ind][W] = Math.max(take, not);
+        return dp[N - 1][w];
     }
-    
 }
