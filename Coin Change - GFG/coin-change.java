@@ -22,30 +22,27 @@ class GfG {
 // } Driver Code Ends
 
 
-// User function Template for Java
-
-
-// User function Template for Java
-
 class Solution {
     public long count(int coins[], int N, int sum) {
         long[][] dp = new long[N][sum + 1];
-        for(long[] row: dp) Arrays.fill(row, -1);
-        return solve(coins, 0, sum, dp);
-    }
-    
-    long solve(int[] coins, int ind, int sum, long[][] dp) {
-        if(ind == coins.length - 1) {
-            if(sum == 0 || sum % coins[ind] == 0) return 1;
-            return 0;
+        dp[N - 1][0] = 1;
+        for(int i = 1; i <= sum; i++) {
+            if(i % coins[N - 1] == 0) dp[N -1][i] = 1;
         }
-        if(dp[ind][sum] != -1) return dp[ind][sum];
-        long take = 0;
         
-        if(coins[ind] <= sum) take = solve(coins, ind, sum - coins[ind], dp);
-        
-        long not = solve(coins, ind + 1, sum, dp);
-        
-        return dp[ind][sum] =  take + not; 
+        for(int ind = N - 2; ind >= 0; ind--) {
+            
+            for(int j = 0; j <= sum; j++) {
+                
+                long take = 0;
+                
+                if(coins[ind] <= j) take = dp[ind][j - coins[ind]];
+                
+                long not = dp[ind + 1][j];
+                
+                dp[ind][j] =  take + not; 
+            }
+        }
+        return dp[0][sum];
     }
 }
