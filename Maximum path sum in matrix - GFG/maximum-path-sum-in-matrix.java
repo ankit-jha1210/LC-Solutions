@@ -25,33 +25,25 @@ class GFG
 
 // } Driver Code Ends
 
-
-
-
 class Solution{
-    static int maximumPath(int N, int Matrix[][]) {
-        Integer[][] dp = new Integer[N][N];
+    static int maximumPath(int N, int mat[][]) {
+        int[][] dp = new int[N][N];
         int max = 0;
+        for(int i = 0; i < N; i++) dp[N - 1][i] = mat[N - 1][i];
+        
+           
+           for(int row = N - 2; row >= 0; row--) {
+               for(int col = 0; col < N; col++) {
+                   int down = dp[row + 1][col];
+                   int left =  col > 0 ? dp[row + 1][col - 1] : 0;
+                   int right = col == N - 1 ? 0 : dp[row + 1][col + 1];
+                   dp[row][col] = Math.max(down, Math.max(left, right)) + mat[row][col];
+               }
+        }
+        
         for(int i = 0; i < N; i++) {
-           max = Math.max(solve(Matrix, 0, i, dp), max);
+            max = Math.max(max, dp[0][i]);
         }
         return max;
-    }
-    
-    static int solve(int[][] mat, int row, int col, Integer[][] dp) {
-        int m = mat.length;
-        
-        if(col == m || col < 0) return 0;
-        
-        
-        if(row == m - 1) return mat[row][col];
-        
-        if(dp[row][col] != null) return dp[row][col];
-        
-        int down = solve(mat, row + 1, col, dp);
-        int left = solve(mat, row + 1, col - 1, dp);
-        int right = solve(mat, row + 1, col + 1, dp);
-        
-        return  dp[row][col] = Math.max(down, Math.max(left, right)) + mat[row][col];
     }
 }
