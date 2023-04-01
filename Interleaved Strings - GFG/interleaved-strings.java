@@ -26,24 +26,24 @@ class InterLeaveString
 class Solution {
 	public boolean isInterLeave(String a,String b,String c)
 	{
-	    Boolean[][][] dp = new Boolean[a.length() + 1][b.length() + 1][c.length()];
-            return solve(a, b, c, 0, 0, 0, dp);
+	    Boolean[][]dp = new Boolean[a.length() + 1][b.length() + 1];
+            return solve(a, b, c, 0, 0, dp);
 	}
 	
-	boolean solve(String a, String b, String c, int i, int j, int k, Boolean[][][] dp) {
-	    if(i == a.length() && j == b.length() && k == c.length()) return true;
+	boolean solve(String a, String b, String c, int i, int j, Boolean[][]dp) {
+	    if(i == a.length() && j == b.length()) return true;
 	    
-	    if(dp[i][j][k] != null) return dp[i][j][k];
+	    if(dp[i][j] != null) return dp[i][j];
 	    
 	    if(i < a.length() && j < b.length()) {
-	        if(a.charAt(i) == b.charAt(j) && a.charAt(i) == c.charAt(k)) {
-	            return dp[i][j][k] =  solve(a, b, c, i + 1, j, k + 1, dp) || solve(a, b, c, i,j + 1, k + 1, dp);
+	        if(a.charAt(i) == b.charAt(j) && a.charAt(i) == c.charAt(i + j)) {
+	            return dp[i][j] =  solve(a, b, c, i + 1, j, dp) || solve(a, b, c, i,j + 1,  dp);
 	        }
 	    }
 	    
-	    if(i < a.length() && c.charAt(k) == a.charAt(i)) return dp[i][j][k] = solve(a, b, c, i + 1, j, k + 1, dp);
-	    else if(j < b.length() && c.charAt(k) == b.charAt(j)) return dp[i][j][k] = solve(a, b, c, i,j + 1, k + 1, dp);
-	    else return dp[i][j][k] = false;
+	    if(i < a.length() && c.charAt(i + j) == a.charAt(i)) return dp[i][j] = solve(a, b, c, i + 1, j, dp);
+	    else if(j < b.length() && c.charAt(i + j) == b.charAt(j)) return dp[i][j] = solve(a, b, c, i,j + 1,dp);
+	    else return dp[i][j] = false;
 	}
 }
 
