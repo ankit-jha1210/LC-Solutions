@@ -25,25 +25,25 @@ class GFG {
 class Solution {
     public int editDistance(String s, String t) {
         
-        Integer[][] dp = new Integer[s.length() + 1][t.length() + 1];
+        int m = s.length(), n = t.length();
         
-        return solve(s, t, s.length(), t.length(), dp);
-    }
-    
-    int solve(String s, String t, int i, int j, Integer[][] dp) {
+        int[][] dp = new int[m + 1][n + 1];
         
-        if(i == 0 && j == 0) return 0;
-        if(i == 0) return  j;
-        if(j == 0) return i;
+        for(int i = 0; i <= n; i++) dp[0][i] = i;
         
-        if(dp[i][j] != null) return dp[i][j];
+        for(int i = 0; i <= m; i++) dp[i][0] = i;
         
-        if(s.charAt(i - 1) == t.charAt(j - 1)) return solve(s, t, i - 1, j - 1, dp);
+        for(int i = 1; i <= m; i++) {
+            for(int j = 1; j <= n; j++) {
+                if(s.charAt(i - 1) == t.charAt(j - 1)) {
+                    dp[i][j] = dp[i - 1][j - 1];
+                }
+                else {
+                    dp[i][j] =  Math.min(dp[i][j - 1], Math.min(dp[i - 1][j - 1], dp[i-1][j])) + 1;
+                }
+            }
+        }
         
-        int op1 = solve(s, t, i , j - 1, dp);
-        int op2 = solve(s, t, i - 1, j, dp);
-        int op3 = solve(s, t, i - 1, j - 1, dp);
-        
-        return dp[i][j] =  Math.min(op1, Math.min(op2, op3)) + 1;
+        return dp[m][n];
     }
 }
