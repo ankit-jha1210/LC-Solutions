@@ -32,27 +32,27 @@ class Solution
     int mod = (int)Math.pow(10, 9) + 7;
     public int CountWays(String str)
     {
-        Integer[] dp = new Integer[str.length()];
-        return solve(str, 0, dp);
-    }
-    
-    int solve(String str, int ind, Integer[] dp) {
-        if(ind == str.length()) return 1;
+        int n = str.length();
+        int[] dp = new int[n + 1];
         
-        if(dp[ind] != null) return dp[ind];
+        dp[n] = 1;
         
-        int firstDigit = str.charAt(ind) - '0';
+        for(int ind = n - 1; ind >= 0; ind--) {
+            int firstDigit = str.charAt(ind) - '0';
         
-        int cnt = 0;
-        if(firstDigit != 0) cnt = solve(str, ind + 1, dp);
+            int cnt = 0;
+            if(firstDigit != 0) cnt = dp[ind + 1];
         
         
-        if(ind + 1 < str.length()) {
+            if(ind + 1 < str.length()) {
             int secondDigit = (firstDigit * 10) + (str.charAt(ind + 1) - '0');
             if(secondDigit >= 10 && secondDigit <= 26) {
-                cnt = (cnt + solve(str, ind + 2, dp)) % mod;
+                cnt = (cnt + dp[ind + 2]) % mod;
             }
         }
-        return dp[ind] = cnt;
+            dp[ind] = cnt;
+            
+        }
+        return dp[0];
     }
 }
