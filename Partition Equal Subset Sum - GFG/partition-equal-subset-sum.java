@@ -34,28 +34,26 @@ class Solution{
         for(int num: arr) sum += num;
         
         if(sum % 2 != 0) return 0;
-        int k = sum/2;
-        Boolean[][] dp = new Boolean[N][k + 1];
+        int K = sum/2;
         
-        return solve(arr, N - 1, k, dp) ? 1: 0;
-    }
-    
-    static boolean solve(int[] arr, int ind, int k, Boolean[][] dp) {
+        boolean[][] dp = new boolean[N][K + 1];
         
-        if(k == 0) return true;
+        for(int i = 0; i < N; i++) dp[i][0] = true;
         
-        if(ind == 0) {
-            if(arr[0] == k) return true;   
-            return false;
+        if(arr[0] <= K) dp[0][arr[0]] = true;
+        
+        for(int ind = 1; ind < N; ind++) {
+            for(int k = 1; k <= K; k++) {
+                boolean not = dp[ind - 1][k];
+                
+                boolean take = false;
+                
+                if(arr[ind] <= k) take = dp[ind - 1][k - arr[ind]];
+                
+                dp[ind][k] =  not || take;
+            }
         }
-        if(dp[ind][k] != null) return dp[ind][k];
-
-        boolean not = solve(arr, ind - 1, k, dp);
         
-        boolean take = false;
-        
-        if(arr[ind] <= k) take = solve(arr, ind - 1, k - arr[ind], dp);
-        
-        return dp[ind][k] =  not || take;
+        return dp[N - 1][K] ? 1: 0;
     }
 }
