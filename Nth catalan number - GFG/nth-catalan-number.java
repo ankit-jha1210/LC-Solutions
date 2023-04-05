@@ -31,20 +31,14 @@ class Solution
     {
         BigInteger[] dp = new BigInteger[n + 1];
         
-        return solve(n, dp);
-    }
-    
-    static BigInteger solve(int n, BigInteger[] dp)  {
-        
-        if(n == 0 || n== 1) return BigInteger.valueOf(1);
-        
-        if(dp[n] != null) return dp[n];
-        
-        BigInteger sum = new BigInteger("0");
-        for(int i = 0; i < n; i++) {
-           sum =  sum.add(solve(i, dp).multiply(solve(n - i - 1, dp)));
+        dp[0] = dp[1] = BigInteger.valueOf(1);
+        for(int i = 2; i <= n; i++) {
+             BigInteger sum = new BigInteger("0");
+            for(int j = 0; j < i; j++) {
+                 sum =  sum.add(dp[j].multiply(dp[i - j - 1]));
+            }
+            dp[i] = sum;
         }
-        
-        return dp[n] = sum;
+        return dp[n];
     }
 }
