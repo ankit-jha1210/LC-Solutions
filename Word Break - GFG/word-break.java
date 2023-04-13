@@ -35,9 +35,23 @@ class Sol
 {
     public static int wordBreak(String A, ArrayList<String> B ) {
         
-        Boolean[] dp = new Boolean[A.length()];
+        boolean[] dp = new boolean[A.length() + 1];
         
-        return solve(A, 0, B, dp) ? 1 : 0;
+        dp[A.length()] = true;
+        
+        for(int ind = A.length() - 1; ind >= 0; ind--) {
+            for(int j = ind; j < A.length(); j++) {
+                   
+            String res = A.substring(ind, j + 1);
+            if(B.contains(res) && dp[j + 1])  {
+                dp[ind] = true;
+                continue;
+        }
+                
+            }
+        }
+        
+        return dp[0] ? 1 : 0;
     }
     
     static boolean solve(String s, int ind, ArrayList<String> B, Boolean[] dp) {
