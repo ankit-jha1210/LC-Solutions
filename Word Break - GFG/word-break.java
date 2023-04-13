@@ -35,20 +35,24 @@ class Sol
 {
     public static int wordBreak(String A, ArrayList<String> B ) {
         
-        return solve(A, 0, B) ? 1 : 0;
+        Boolean[] dp = new Boolean[A.length()];
+        
+        return solve(A, 0, B, dp) ? 1 : 0;
     }
     
-    static boolean solve(String s, int ind, ArrayList<String> B) {
+    static boolean solve(String s, int ind, ArrayList<String> B, Boolean[] dp) {
         
         if(ind == s.length()) return true;
+        
+        if(dp[ind] != null) return dp[ind];
         
         for(int j = ind; j < s.length(); j++) {
             
             String res = s.substring(ind, j + 1);
             
-            if(B.contains(res) && solve(s, j + 1, B))  return true;
+            if(B.contains(res) && solve(s, j + 1, B, dp))  return dp[ind] =  true;
             }
             
-        return false;
+        return dp[ind] = false;
         }
 }
