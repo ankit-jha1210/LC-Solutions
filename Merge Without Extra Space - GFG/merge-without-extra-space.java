@@ -47,41 +47,22 @@ public class Main
 class Solution
 {
     //Function to merge the arrays.
-    public static void merge(long arr1[], long arr2[], int n, int m) {
-        int gap = (int)Math.ceil((m + n)/2.0);
+    public static void merge(long arr1[], long arr2[], int m, int n) 
+    {
         
-        while(gap > 0) {
-            int i = 0, j = gap;
-            while(j < n + m) {
-                if(j < n) {
-                    if(arr1[i] > arr1[j]) {
-                    long temp = arr1[i];
-                    arr1[i] = arr1[j];
-                    arr1[j] = temp;
-                    }
-                }
-                else if(j >= n && i < n) {
-                    if(arr1[i] > arr2[j - n]) {
-                        long temp = arr1[i];
-                        arr1[i] = arr2[j - n];
-                        arr2[j - n] = temp;
-                    }
-                }
-                else if(i >= n) {
-                     if(arr2[i - n] > arr2[j - n]) {
-                        long temp = arr2[i - n];
-                        arr2[i - n] = arr2[j - n];
-                        arr2[j - n] = temp;
-                    }
-                }
-                i++;
-                j++;
-            }
-            
-            if(gap == 1) break;
-            gap = (int)Math.ceil(gap/2.0);
-        }
-        
-        
+         for(int i = 0; i < m; i++) {
+           if(arr1[i] > arr2[0]) {
+               long temp = arr1[i];
+               arr1[i] = arr2[0];
+               arr2[0] = temp;
+               
+               int j = 1;
+               for(; j < n && arr2[j] <= temp; j++) arr2[j - 1] = arr2[j];
+
+               arr2[j - 1] = temp;
+
+           }
+       }
+      
     }
 }
