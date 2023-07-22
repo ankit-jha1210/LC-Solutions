@@ -1,19 +1,14 @@
 class Solution {
     public long maxScore(int[] nums, int x) {
-        Long[][] dp = new Long[nums.length][2];
-        return solve(nums, x, 1, nums[0] % 2, dp) + nums[0];
-    }
-    long solve(int[] nums, int x, int idx, int prev, Long[][] dp) {
-        
-        if(idx == nums.length) return 0;
-        if(dp[idx][prev] != null) return dp[idx][prev];
-        
-        long take = solve(nums, x, idx + 1, nums[idx] % 2, dp) + nums[idx];
-        
-        if(nums[idx] % 2 != prev) take -= x;
-
-        long not = solve(nums, x, idx + 1, prev, dp);
-        
-        return dp[idx][prev] =  Math.max(take, not);
+        long[][] dp = new long[nums.length + 1][2];
+        for(int idx = nums.length - 1; idx > 0; idx--) {
+            for(int prev = 0; prev <= 1; prev++) {
+                long take = dp[idx + 1][nums[idx] % 2] + nums[idx];
+                if(nums[idx] % 2 != prev) take -= x;
+                long not = dp[idx + 1][prev];
+                dp[idx][prev] = Math.max(take, not);
+            }
+        }
+        return dp[1][nums[0] % 2] + nums[0];
     }
 }
