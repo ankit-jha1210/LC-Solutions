@@ -1,25 +1,18 @@
 class Solution {
 
     public List<List<Integer>> findMatrix(int[] nums) {
-        List<List<Integer>> res = new ArrayList<>();
-        Map<Integer, Integer> map = new HashMap<>();
+        int[] cnt = new int[201];
         int rows = 1;
         for (int num : nums) {
-            if (map.containsKey(num)) {
-                int freq = map.get(num) + 1;
-                map.put(num, freq);
-                rows = Math.max(rows, freq);
-            } else map.put(num, 1);
+            cnt[num]++;
+            rows = Math.max(rows, cnt[num]);
         }
-        for (int row = 0; row < rows; row++) {
-            List<Integer> temp = new ArrayList<>();
-            for (int key : map.keySet()) {
-                if (map.get(key) == 0) continue;
-                int occurence = map.get(key) - 1;
-                map.put(key, occurence);
-                temp.add(key);
+        List<List<Integer>> res = new ArrayList<>(rows);
+        for (int i = 0; i < rows; i++) res.add(new ArrayList<>());
+        for (int i = 1; i < 201; i++) {
+            for (int j = 0; j < cnt[i]; j++) {
+                res.get(j).add(i);
             }
-            res.add(temp);
         }
         return res;
     }
