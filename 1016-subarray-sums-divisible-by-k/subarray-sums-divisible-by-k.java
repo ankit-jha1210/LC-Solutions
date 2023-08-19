@@ -7,9 +7,8 @@ class Solution {
         for (int num : nums) {
             sum += num;
             int rem = sum % k;
-            if (rem < 0) {
-                rem += k;
-            }
+            if (rem < 0) rem += k;
+            
             cnt += map.getOrDefault(rem, 0);
             map.put(rem, map.getOrDefault(rem, 0) + 1);
         }
