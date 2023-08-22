@@ -1,10 +1,10 @@
 class Solution {
 
     public int subarraysWithKDistinct(int[] nums, int k) {
-        return solve(nums, k) - solve(nums, k - 1);
+        return atmostK(nums, k) - atmostK(nums, k - 1);
     }
 
-    int solve(int[] nums, int k) {
+    int atmostK(int[] nums, int k) {
         // finding cnt <= k subarrays
         int i = 0, j = 0;
         int len = 0;
