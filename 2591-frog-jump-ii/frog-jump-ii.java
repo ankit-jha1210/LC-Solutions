@@ -20,7 +20,7 @@ class Solution {
         while (i < stones.length - 1) {
             int j = i + 1;
             while (j < n && stones[j] - stones[i] <= max) j++;
-            if (i == j - 1 || stones[j - 1] - stones[i] > max) return false;
+            if (i == j - 1) return false;
             visited[i] = true;
             i = j - 1;
         }
@@ -30,7 +30,6 @@ class Solution {
             int j = i - 1;
             while (j >= 0 &&  visited[j]) j--;
             if (j < 0 || stones[i] - stones[j] > max) return false;
-            // System.out.println(max+" "+j);
             visited[j] = true;
             i = j;
         }
