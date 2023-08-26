@@ -22,7 +22,6 @@ class Solution {
             while (j < n && stones[j] - stones[i] <= max) j++;
             if (i == j - 1 || stones[j - 1] - stones[i] > max) return false;
             visited[i] = true;
-            System.out.println(max + " " + j);
             i = j - 1;
         }
         visited[0] = false;
