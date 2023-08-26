@@ -16,7 +16,7 @@ class Solution {
     boolean isPossible(int[] nums, int diff, int p) {
         int cnt = 0;
         int i = 1;
-        while(i < nums.length) {
+        while(i < nums.length && cnt < p) {
             if(nums[i] - nums[i - 1] <= diff) {
                 cnt++;
                 i++;
