@@ -19,9 +19,9 @@ class Solution {
         while(i < nums.length) {
             if(nums[i] - nums[i - 1] <= diff) {
                 cnt++;
-                i += 2;
+                i++;
             }
-            else i++;
+            i++;
         }
         return cnt >= p;
     }
