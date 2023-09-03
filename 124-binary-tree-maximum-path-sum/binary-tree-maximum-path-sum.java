@@ -1,9 +1,9 @@
 class Solution {
-    int maxi;
+    int max;
     public int maxPathSum(TreeNode root) {
-        maxi = Integer.MIN_VALUE;
+        max = Integer.MIN_VALUE;
         maxPathDown(root);
-        return maxi;
+        return max;
     }
 
     int maxPathDown(TreeNode root) {
@@ -12,7 +12,8 @@ class Solution {
         int left = Math.max(0, maxPathDown(root.left));
         int right = Math.max(0, maxPathDown(root.right));
 
-        maxi = Math.max(maxi, left + right + root.val);
+        max = Math.max(max, left + right + root.val);
+
         return Math.max(left, right) + root.val;
     }
 }
