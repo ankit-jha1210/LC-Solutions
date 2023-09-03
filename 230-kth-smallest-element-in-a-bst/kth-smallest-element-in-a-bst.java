@@ -1,19 +1,23 @@
 class Solution {
-    int j = 0;
+    int cnt, elm;
 
     public int kthSmallest(TreeNode root, int k) {
-        j = 0;
-        return inorder(root, k);
+        cnt = 0;
+        elm = -1;
+        inorder(root, k);
+        return elm;
     }
 
-    int inorder(TreeNode root, int k) {
-        if (root == null) return -1;
+    boolean inorder(TreeNode root, int k) {
+        if (root == null) return false;
 
-        int left = inorder(root.left, k);
-        if (left != -1) return left;
-        j++;
+        if (inorder(root.left, k)) return true;
 
-        if (j == k) return root.val;
+        cnt++;
+        if (cnt == k) {
+            elm = root.val;
+            return true;
+        }
 
         return inorder(root.right, k);
     }
