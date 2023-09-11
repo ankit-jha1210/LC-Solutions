@@ -28,11 +28,12 @@ class Solution {
                     distance[it[0]] = dist + it[1];
                     ways[it[0]] = ways[node];
                     pq.add(new Pair(it[0], distance[it[0]]));
-                } else if (dist + it[1] == distance[it[0]]) ways[it[0]] = (ways[it[0]] + ways[node]) % mod;
+                } 
+                else if (dist + it[1] == distance[it[0]]) ways[it[0]] = (ways[it[0]] + ways[node]) % mod;
             }
         }
 
-        return (int) ways[n - 1];
+        return ways[n - 1];
     }
 }
 
